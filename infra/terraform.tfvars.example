@@ -1,0 +1,27 @@
+# Copy this file to terraform.tfvars and fill in the values.
+# Never commit terraform.tfvars to version control if it contains secrets.
+
+aws_region   = "ca-central-1"
+project_name = "overture-canada"
+environment  = "dev"
+
+# S3
+# raw_data_bucket_suffix = "123456789012"   # defaults to AWS account ID
+force_destroy_buckets = false
+
+# Overture release
+overture_release = "2025-01-22.0"
+
+# Glue
+glue_database_name     = "overture_canada"
+glue_version           = "4.0"
+glue_worker_type       = "G.1X"
+glue_number_of_workers = 2
+
+# Leave empty to disable scheduled crawler runs
+glue_crawler_schedule = ""
+# glue_crawler_schedule = "cron(0 6 * * ? *)"   # daily at 06:00 UTC
+
+# Athena
+athena_workgroup_name       = "overture-canada"
+athena_bytes_scanned_cutoff = 10737418240   # 10 GB

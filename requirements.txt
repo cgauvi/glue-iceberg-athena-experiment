@@ -1,0 +1,4 @@
+duckdb>=0.10.0
+boto3>=1.34.0
+pyarrow>=14.0.0
+click>=8.1.0
