@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "glue-iceberg-athena-experiment"
+version = "0.1.0"
+description = "ETL pipeline for Overture Maps Canada data with Glue, Iceberg and Athena"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "duckdb>=0.10.0",
+    "boto3>=1.34.0",
+    "pyarrow>=14.0.0",
+    "click>=8.1.0",
+]
+
+[project.scripts]
+overture-etl = "etl.pipeline:cli"
+
+[tool.setuptools.packages.find]
+include = ["etl*", "glue_jobs*"]
+
+# ---------------------------------------------------------------------------
+# pytest
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-v --tb=short"
+markers = [
+    "integration: marks tests that call external services (deselect with -m 'not integration')",
+]
+
+# ---------------------------------------------------------------------------
+# ruff (linting)
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]   # line length handled by formatter
+
+[tool.ruff.lint.isort]
+known-first-party = ["etl", "glue_jobs"]
